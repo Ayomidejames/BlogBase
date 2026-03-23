@@ -1,0 +1,88 @@
+const Post = require("../schema/postSchema")
+
+// create new post
+const createPost = async (req, res) => {
+    try {
+        const {title, content, description} = req.body
+        if (!title || !content || !description) {
+        return res.status(400).json({msg: "All fields are required."})}
+        const newPost = new Blog({...req.body, userId: req.user._id})
+        await newPost.save()
+        res.status(201).json(newPost)
+
+    } catch (error) {
+        res.status(500).json({
+            message: error.message
+        })
+    } 
+}
+
+const getPost = async (req, res) => {
+  try {
+    const posts = await Post.find().populate('userId', '-password');
+    if (!posts) return res.status(404).json({msg: 'No post available.'}) 
+    return res.status(200).json(posts);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+const onePost = async (req, res) => {
+  try {
+    const {id} = req.params
+    const post = await Post.findById(id);
+    if (!blog) return res.status(404).json({ message: `Blog with id ${id} not found` });
+    return res.json(blog);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+const updatePost = async (req, res) => {
+  try {
+    const user = req.user
+    const { title, content, description } = req.body
+    const {id} = req.params    
+    const post = await Post.findById(id);
+    if (!post) return res.status(404).json({ message: 'Post not found' });
+    if ((user._id).toString() === (post.userId).toString()) {
+        const updated_post = await Product.findByIdAndUpdate(id, {title, content, description}, {new: true})
+        return res.status(200).json(updated_post)
+    } else {
+        return res.status(403).json({msg: "You can only update your post."})
+    }
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+const deletePost = async (req, res) => {
+    const user = req.user
+    try {
+        const {id} = req.params
+        // const product = await Product.findByIdAndDelete(id)
+        const post = await Post.findById(id)
+        if (!post) {
+            res.status(400).json({
+                message: `Post with id ${id} not found.`
+            })
+        }
+        if (user._id !== post.userId) {
+            return res.json({msg: "You can only delete your product."})
+        }
+        await post.deleteOne
+        return res.status(200).json({msg: "Post deleted successfully."})
+    } catch (error) {
+        return res.status(500).json({
+            msg: error.message
+        })
+    }
+}
+
+module.exports = {
+    createPost,
+    getPost,
+    onePost,
+    updatePost,
+    deletePost
+}
