@@ -1,35 +1,35 @@
 📁 Project Structure
-This project follows the MVC (Model-View-Controller) pattern to ensure scalability and clean code separation.
+# This project follows the MVC (Model-View-Controller) pattern to ensure scalability and clean code separation.
 
-Plaintext
-VENDIFY/
-├── controllers/          # Business logic & Request handling
-│   ├── authController.js     # User registration & Login logic
-│   ├── cartController.js     # Shopping cart operations
-│   ├── categoryController.js # Product categorization logic
-│   ├── otpController.js      # Email/Phone verification logic
-│   ├── productController.js  # CRUD operations for products
-│   └── userController.js     # Profile management
-├── db/                   # Database configuration
-│   └── db.js                 # MongoDB connection setup via Mongoose
-├── lib/                  # Utilities & Third-party services
-│   └── mailService.js        # Nodemailer / Email configuration
-├── middlewares/          # Custom Express middlewares
-│   ├── adminMiddleware.js    # Protects admin-only routes
-│   └── authMiddleware.js     # Verifies JWT tokens for logged-in users
-├── routers/              # API Route definitions
-│   ├── authRouter.js         # /api/auth routes
-│   ├── cartRouter.js         # /api/cart routes
-│   ├── productRouter.js      # /api/products routes
-│   └── ...                   # (Other routers)
-├── schema/               # Mongoose Models (Data Blueprints)
-│   ├── cartSchema.js
-│   ├── productSchema.js
-│   └── userSchema.js
-├── .env                  # Environment variables (Private!)
-├── .gitignore            # Files excluded from GitHub (node_modules, .env)
-├── package.json          # Dependencies & Scripts
-└── server.js             # Main entry point of the application
+## VENDIFY/
+  ├── controllers/          # Business logic & Request handling
+  │   ├── authController.js     # User registration & Login logic
+  │   ├── cartController.js     # Shopping cart operations
+  │   ├── categoryController.js # Product categorization logic
+  │   ├── otpController.js      # Email/Phone verification logic
+  │   ├── productController.js  # CRUD operations for products
+  │   └── userController.js     # Profile management
+  ├── db/                   # Database configuration
+  │   └── db.js                 # MongoDB connection setup via Mongoose
+  ├── lib/                  # Utilities & Third-party services
+  │   └── mailService.js        # Nodemailer / Email configuration
+  ├── middlewares/          # Custom Express middlewares
+  │   ├── adminMiddleware.js    # Protects admin-only routes
+  │   └── authMiddleware.js     # Verifies JWT tokens for logged-in users
+  ├── routers/              # API Route definitions
+  │   ├── authRouter.js         # /api/auth routes
+  │   ├── cartRouter.js         # /api/cart routes
+  │   ├── productRouter.js      # /api/products routes
+  │   └── ...                   # (Other routers)
+  ├── schema/               # Mongoose Models (Data Blueprints)
+  │   ├── cartSchema.js
+  │   ├── productSchema.js
+  │   └── userSchema.js
+  ├── .env                  # Environment variables (Private!)
+  ├── .gitignore            # Files excluded from GitHub (node_modules, .env)
+  ├── package.json          # Dependencies & Scripts
+  └── server.js             # Main entry point of the application
+  
 🚀 Getting Started
 1. Prerequisites
 Node.js (v18+ recommended)
