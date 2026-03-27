@@ -1,18 +1,25 @@
 const Comment = require("../schema/commentSchema")
+const Post = require("../schema/postSchema")
 
 // create new post
 const postComment = async (req, res) => {
     try {
-        const {authorId, postId, comment} = req.body
-        if (!authorId || !postId || !comment) {
+        const { postId, comment } = req.body
+        const user = req.user
+        if ( !postId || !comment) {
         return res.status(400).json({msg: "All fields are required."})}
-        const newPost = new Blog({
-            authorId: req.user._id,
+        const newComment = new Comment({
+            authorId: user._id,
             postId,
             comment
         })
-        await newPost.save()
-        res.status(201).json(newPost)
+        const savedComment = await newComment.save()
+        await Post.findByIdAndUpdate(
+            postId, 
+            { $push: { commentId: savedComment._id } }, // Adds the new ID to the array
+            { new: true }
+        );
+        return res.status(201).json(savedComment)
 
     } catch (error) {
         res.status(500).json({
@@ -21,11 +28,14 @@ const postComment = async (req, res) => {
     } 
 }
 
-const getAllComments = async (req, res) => {
+const getCommentsByPost = async (req, res) => {
   try {
-    const comments = await Comment.find().populate('postId authorId');
-    if (!comments) return res.status(404).json({msg: 'No comment available.'}) 
-    return res.status(200).json(comments);
+    const { postId } = req.params;
+    const comments = await Comment.find({ postId })
+      .populate('authorId', 'username')
+      .sort({ createdAt: -1 }); // Newest comments first
+
+    res.status(200).json(comments);
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
@@ -36,17 +46,21 @@ const deleteComment = async (req, res) => {
     const user = req.user
     try {
         const {id} = req.params
-        // const product = await Product.findByIdAndDelete(id)
+    
         const comment = await Comment.findById(id)
         if (!comment) {
             res.status(400).json({
                 message: `Comment with id ${id} not found.`
             })
         }
-        if (user._id !== comment.authorId) {
+        if (user._id.toString() !== comment.authorId.toString()) {
             return res.json({msg: "You can only delete your comment."})
         }
-        await comment.deleteOne
+        // removes the comment ID from the Post's comments array
+        await Post.findByIdAndUpdate(comment.postId, {
+            $pull: { commentId: id }
+        })
+        await comment.deleteOne()
         return res.status(200).json({msg: "Comment deleted successfully."})
     } catch (error) {
         return res.status(500).json({
@@ -57,6 +71,6 @@ const deleteComment = async (req, res) => {
 
 module.exports = {
     postComment,
-    getAllComments,
+    getCommentsByPost,
     deleteComment
 }

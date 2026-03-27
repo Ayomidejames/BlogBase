@@ -104,12 +104,12 @@ const createUser = async (req, res) => {
 
 // FUNCTION UPDATES EXISTING USER IN THE DATABASE
 const updateUser = async (req, res) => {
-    const {user} = req.user
+    const user = req.user
     const { username, email, password} = req.body
     const {id} = req.params 
     if (id === user._id) {
         try {
-            const user = await Product.findByIdAndUpdate(id,
+            const user = await User.findByIdAndUpdate(id,
                 {username, email, password},
                 // returning the new user after update
                 {new: true}
@@ -132,18 +132,17 @@ const updateUser = async (req, res) => {
 
 // FUNCTION DELETES EXISTING USER IN THE DATABASE
 const deleteUser = async (req, res) => {
-    const {user} = req.user
-    const users = await User.find()
+    const user = req.user
     const {id} = req.params
-    if (id === user._id || user.isAdmin) {
+    if (id === user._id.toString() || user.isAdmin) {
         try {
-            const user = await User.findByIdAndDelete(id)
-            if (!user) {
+            const deletedUser = await User.findByIdAndDelete(id)
+            if (!deletedUser) {
                 res.status(400).json({
-                    message: `product with id ${id} not found.`
+                    message: `User with id ${id} not found.`
                 })
             }
-            res.status(200).json(users)
+            res.status(200).json({msg: 'User deleted successfully.'})
         } catch (error) {
             res.status(500).json({
                 msg: error.message

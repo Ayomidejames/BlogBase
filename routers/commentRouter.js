@@ -1,6 +1,6 @@
 const express = require('express')
 const authMiddleware = require('../middlewares/authMiddleware')
-const { postComment, getAllComments, deleteComment } = require('../controllers/commentController')
+const { postComment, deleteComment, getCommentsByPost } = require('../controllers/commentController')
 
 
 // const authMiddleware = require('../middlewares/authmiddleware')
@@ -10,10 +10,11 @@ commentRouter
     // creates a new 
     .post('/postcomment', authMiddleware, postComment)
 
-    // gets all products
-    .get('/comments', getAllComments)
+    // gets all comments
+    .get('/comments', getCommentsByPost)
 
-    .delete('/deleteComment', deleteComment)
+    // delete comment
+    .delete('/deleteComment', authMiddleware, deleteComment)
 
 
 module.exports = commentRouter

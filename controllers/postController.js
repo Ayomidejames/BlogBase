@@ -6,7 +6,7 @@ const createPost = async (req, res) => {
         const {title, content, description} = req.body
         if (!title || !content || !description) {
         return res.status(400).json({msg: "All fields are required."})}
-        const newPost = new Blog({...req.body, userId: req.user._id})
+        const newPost = new Post({...req.body, userId: req.user._id})
         await newPost.save()
         res.status(201).json(newPost)
 
@@ -31,8 +31,8 @@ const onePost = async (req, res) => {
   try {
     const {id} = req.params
     const post = await Post.findById(id);
-    if (!blog) return res.status(404).json({ message: `Blog with id ${id} not found` });
-    return res.json(blog);
+    if (!post) return res.status(404).json({ message: `Post with id ${id} not found` });
+    return res.json(post);
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
@@ -46,7 +46,7 @@ const updatePost = async (req, res) => {
     const post = await Post.findById(id);
     if (!post) return res.status(404).json({ message: 'Post not found' });
     if ((user._id).toString() === (post.userId).toString()) {
-        const updated_post = await Product.findByIdAndUpdate(id, {title, content, description}, {new: true})
+        const updated_post = await Post.findByIdAndUpdate(id, {title, content, description}, {new: true})
         return res.status(200).json(updated_post)
     } else {
         return res.status(403).json({msg: "You can only update your post."})
@@ -68,9 +68,9 @@ const deletePost = async (req, res) => {
             })
         }
         if (user._id !== post.userId) {
-            return res.json({msg: "You can only delete your product."})
+            return res.json({msg: "You can only delete your post."})
         }
-        await post.deleteOne
+        await post.deleteOne()
         return res.status(200).json({msg: "Post deleted successfully."})
     } catch (error) {
         return res.status(500).json({

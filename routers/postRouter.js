@@ -7,18 +7,18 @@ const postRouter = express.Router()
 
 postRouter
     // creates a new 
-    .post('/product/', authMiddleware, createPost)
+    .post('/post/', authMiddleware, createPost)
 
     // gets all products
-    .get('/products', getPost)
+    .get('/getPost', getPost)
 
     // gets one product
-    .get('/product/:id', onePost)
+    .get('/post/:id', onePost)
 
     // update product
-    .put('/product/:id', authMiddleware, updatePost)
+    .put('/post/:id', authMiddleware, updatePost)
 
     // delete product
-    .delete('/product/:id', authMiddleware ,deletePost)
+    .delete('/post/:id', authMiddleware ,deletePost)
 
 module.exports = postRouter
