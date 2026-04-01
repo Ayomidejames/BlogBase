@@ -12,6 +12,11 @@ const userSchema = new mongoose.Schema({
         type: String, 
         required: true
     },
+    role: {
+        type: String,
+        enum: ['regular', 'admin'],
+        default: 'regular'
+    },
     superAdmin: {
         type: Boolean,
         default: false
@@ -23,16 +28,13 @@ const userSchema = new mongoose.Schema({
     isVerified: {
         type: Boolean, default: false
     },
-    isAdmin: {
-        type: Boolean, 
-        default: false,
     lastOPTsent: Date
     // Profile: { 
     //     country: String,
     //     Street: String,
     //     bio: String 
     // }
-}},
+},
 // generates the time new user is created or the time an existing user was modified.
 {timestamps: true})
 

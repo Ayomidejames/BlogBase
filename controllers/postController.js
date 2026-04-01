@@ -1,12 +1,18 @@
+const authMiddleware = require("../middlewares/authMiddleware")
 const Post = require("../schema/postSchema")
 
 // create new post
 const createPost = async (req, res) => {
     try {
-        const {title, content, description} = req.body
-        if (!title || !content || !description) {
-        return res.status(400).json({msg: "All fields are required."})}
-        const newPost = new Post({...req.body, userId: req.user._id})
+        const { user } = req.user
+        const { title, content, description } = req.body
+        if (!user) {
+            return res.status(403).json({msg: 'Login to post.'})
+        }
+        if ( !title || !content || !description ) {
+        return res.status(400).json({msg: "All fields are required."})
+        }
+        const newPost = new Post({...req.body, userId: user._id})
         await newPost.save()
         res.status(201).json(newPost)
 

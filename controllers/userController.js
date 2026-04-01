@@ -59,7 +59,7 @@ const createUser = async (req, res) => {
             })
             if (email == process.env.SUPERADMIN) {
                 newUser.superAdmin = true
-                newUser.isAdmin = true
+                newUser.role = 'admin'
             }
             // replaced username, email with ...req.body. This automatically takes the requests from the request body.
             await newUser.save()
@@ -67,7 +67,7 @@ const createUser = async (req, res) => {
                 const mailObj = {
                     mailFrom: `BlogBase ${process.env.BLOGBASE_EMAIL}`,
                     mailTo: email,
-                    subject: 'BlogBase - Your OTP Verification Code',
+                    subject: 'BlogBase - OTP Verification Code',
                     body:`
                     <div style="font-family: Arial, sans-serif; color: #333; line-height: 1.6; max-width: 600px; margin: 0 auto; border: 1px solid #eee; padding: 20px; border-radius: 8px;">
                         <h2 style="color: #2c3e50;">Hello <strong>${username}</strong>,</h2>
@@ -134,7 +134,7 @@ const updateUser = async (req, res) => {
 const deleteUser = async (req, res) => {
     const user = req.user
     const {id} = req.params
-    if (id === user._id.toString() || user.isAdmin) {
+    if (id === user._id || user.role == 'admin' || user.superAdmin) {
         try {
             const deletedUser = await User.findByIdAndDelete(id)
             if (!deletedUser) {

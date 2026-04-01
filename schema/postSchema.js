@@ -5,10 +5,6 @@ const postSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: "User"
     },
-    commentId: [{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Comment"
-    }],
     title: {
         type: String,
         required: true
