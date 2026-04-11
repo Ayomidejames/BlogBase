@@ -7,12 +7,12 @@ const postRouter = express.Router()
 
 postRouter
     // creates a new 
-    .post('/post/', authMiddleware, createPost)
+    .post('/post', authMiddleware, createPost)
 
-    // gets all products
+    // gets all posts
     .get('/getPost', getPost)
 
-    // gets one product
+    // gets one post
     .get('/post/:id', onePost)
 
     // update product

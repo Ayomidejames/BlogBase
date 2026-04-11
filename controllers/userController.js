@@ -85,7 +85,7 @@ const createUser = async (req, res) => {
                     </div>
                 `
                 }
-            const info = sendMail(mailObj)
+            const info = await sendMail(mailObj)
             console.log(info)
             } catch (error) {
                 return res.status(500).json({msg: error})

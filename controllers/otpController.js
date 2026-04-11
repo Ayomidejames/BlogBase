@@ -32,7 +32,7 @@ const otpVerify = async(req, res) => {
                 subject: 'Welcome to BlogBase! Your Account is Verified',
                 body: `
                 <div style="font-family: Arial, sans-serif; color: #333; line-height: 1.6; max-width: 600px; margin: 0 auto; border: 1px solid #eee; padding: 20px; border-radius: 8px;">
-                    <h2 style="color: #2c3e50;">Welcome to Vendify, <strong>${username}</strong>! 🎉</h2>
+                    <h2 style="color: #2c3e50;">Welcome to Vendify, <strong>${user.username}</strong>! 🎉</h2>
                     <p>Your account has been successfully verified.</p>
                     <p>You can now proceed to log in and start exploring our platform.</p>
                     <div style="text-align: center; margin: 25px 0;">

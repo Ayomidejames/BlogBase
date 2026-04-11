@@ -3,16 +3,16 @@ Description: Develop a blogging platform where users can write, edit,
 and delete blog posts. Other users can read and comment on blog 
 posts. Implement user roles, such as admins and regular users. 
 Features: 
- User registration and login 
- CRUD operations for blog posts 
- Comment system for blog posts 
- User roles and permissions 
+ User registration and login✅
+ CRUD operations for blog posts✅
+ Comment system for blog posts✅
+ User roles and permissions
 
 1. CRUD for posts: Users can write, edit, 
-and delete blog posts.
+and delete blog posts.✅
 2. COMMENTING on posts: Other users can read and comment on blog 
-posts.
+posts.✅
 3. User Roles and permissions: 
-i. Admin: Has access to all user accounts and their posts also
+i. Admin: Has access to all user accounts and their posts also✅
 ii. Author/ Audience: Can perform CRUD posts, comments operations and like posts.
 4. Comments should contain authors, posts details.

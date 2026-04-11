@@ -8,13 +8,13 @@ const commentRouter = express.Router()
 
 commentRouter
     // creates a new 
-    .post('/postcomment', authMiddleware, postComment)
+    .post('/comment', authMiddleware, postComment)
 
     // gets all comments
-    .get('/comments', getCommentsByPost)
+    .get('/:postId/comments', getCommentsByPost)
 
     // delete comment
-    .delete('/deleteComment', authMiddleware, deleteComment)
+    .delete('/delcomment', authMiddleware, deleteComment)
 
 
 module.exports = commentRouter

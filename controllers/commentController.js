@@ -31,11 +31,18 @@ const postComment = async (req, res) => {
 const getCommentsByPost = async (req, res) => {
   try {
     const { postId } = req.params;
-    const comments = await Comment.find({ postId })
-      .populate('authorId', 'username')
-      .sort({ createdAt: -1 }); // Newest comments first
+    // checks if postId is valid
+    const post = await Post.findById(postId)
+    if (!post) {
+        return res.status(404).json({msg: `Post with Id ${postId} not found`})
+    }
 
+    const comments = await Comment.find({ postId })
+    .populate('authorId', 'username')
+    .populate('postId', 'title content')
+    .sort({ createdAt: -1 })
     res.status(200).json(comments);
+
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
