@@ -16,3 +16,4 @@ posts.✅
 i. Admin: Has access to all user accounts and their posts also✅
 ii. Author/ Audience: Can perform CRUD posts, comments operations and like posts.
 4. Comments should contain authors, posts details.
+5. Include image uploads for user profile

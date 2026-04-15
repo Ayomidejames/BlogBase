@@ -1,5 +1,5 @@
 const User = require("../schema/userSchema")
-const { sendMail, generateOTP } = require("../lib/mailService")
+const { sendMail, generateOTP } = require("../config/mailService")
 
 
 //verifies the user

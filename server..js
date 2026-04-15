@@ -8,6 +8,7 @@ const authRouter = require('./routers/authRouter')
 const userRouter = require('./routers/userRouter')
 const postRouter = require('./routers/postRouter')
 const commentRouter = require('./routers/commentRouter')
+const imageRouter = require('./routers/imageRouter')
 db()
 
 const port = process.env.port
@@ -20,6 +21,7 @@ server.use(express.urlencoded({
 server.use(cookieParser())
 server.use('/api', otpRouter)
 server.use('/api', authRouter)
+server.use('/api', imageRouter)
 server.use('/api', userRouter)
 server.use('/api', postRouter)
 server.use('/api', commentRouter)

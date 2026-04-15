@@ -1,7 +1,7 @@
 const jwt = require('jsonwebtoken')
 const bcrypt = require('bcrypt')
 const User = require('../schema/userSchema')
-const { generateOTP } = require('../lib/mailService')
+const { generateOTP } = require('../config/mailService')
 
 const SignIn = async(req, res) => {
     try {

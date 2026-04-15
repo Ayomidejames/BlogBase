@@ -1,4 +1,4 @@
-const { sendMail, generateOTP } = require("../lib/mailService")
+const { sendMail, generateOTP } = require("../config/mailService")
 const User = require("../schema/userSchema")
 const bcrypt = require("bcrypt")
 
